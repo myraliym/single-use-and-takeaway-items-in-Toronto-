@@ -18,8 +18,8 @@ library(reshape2)
 library(writexl)
 
 ## input data
-single_use_data <- read_xlsx(here::here("outputs/data/usage_pattern_data_2018.xlsx"))
-single_use_data_2019 <- read.csv(here::here("outputs/data/usage_pattern_data_2019.csv"))
+single_use_data <- read_xlsx(here::here("outputs/data/Fig00_usage_pattern_data_2018.xlsx"))
+single_use_data_2019 <- read.csv(here::here("outputs/data/Fig00_usage_pattern_data_2019.csv"))
 
 
 # Calculate frequency and percentage for 2018 data
