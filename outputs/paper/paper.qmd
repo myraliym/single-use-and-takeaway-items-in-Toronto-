@@ -100,7 +100,7 @@ plastic_bags <- ggplot(data = frequency_table_plastic, aes(x = `Plastic Bags`, y
 plastic_bags
 ```
 ```{r}
-# choose disposable hot to-go cups and count frequency
+# choose paper bags and count frequency
 frequency_table_paper_bags <- single_use_data %>%
   group_by(`Paper Bags`) %>%
   summarise(Freq = n()) %>%
@@ -110,12 +110,12 @@ frequency_table_paper_bags <- single_use_data %>%
 paper_bags <- ggplot(data = frequency_table_paper_bags, aes(x = `Paper Bags`, y = Freq)) +
   geom_bar(stat = "identity", fill = "steelblue") +
   theme_minimal() +
-  labs(x = "Plastic Bags", y = "Frequency", title = "Usage Patterns of Paper Bags")
+  labs(x = "Paper Bags", y = "Frequency", title = "Usage Patterns of Paper Bags")
 
 paper_bags
 ```
 ```{r}
-# choose disposable hot to-go cups and count frequency
+# choose black plastic containers and count frequency
 frequency_black_plastic_containers <- single_use_data %>%
   group_by(`Black Plastic Containers`) %>%
   summarise(Freq = n()) %>%
@@ -131,7 +131,7 @@ black_plastic_containers
 ```
 
 ```{r}
-# choose disposable hot to-go cups and count frequency
+# choose other plastic containers and count frequency
 frequency_other_plastic_containers <- single_use_data %>%
   group_by(`Other Colour Plastic Containers`) %>%
   summarise(Freq = n()) %>%
@@ -147,19 +147,50 @@ other_plastic_containers
 ```
 
 ```{r}
-# choose disposable hot to-go cups and count frequency
-frequency_other_plastic_containers <- single_use_data %>%
-  group_by(`Other Colour Plastic Containers`) %>%
+# choose disposable cutlery and count frequency
+frequency_disposable_cutlery <- single_use_data %>%
+  group_by(`Disposable Cutlery`) %>%
   summarise(Freq = n()) %>%
   as.data.frame()
 
 # Plot the bar chart
-other_plastic_containers <- ggplot(data = frequency_other_plastic_containers, aes(x = `Other Colour Plastic Containers`, y = Freq)) +
+disposable_cutlery <- ggplot(data = frequency_disposable_cutlery , aes(x = `Disposable Cutlery`, y = Freq)) +
   geom_bar(stat = "identity", fill = "steelblue") +
   theme_minimal() +
-  labs(x = "Other Colour Plastic Containers", y = "Frequency", title = "Usage Patterns of Other Colour Plastic Containers")
+  labs(x = "Disposable Cutlery", y = "Frequency", title = "Usage Patterns of Disposable Cutlery")
 
-other_plastic_containers
+disposable_cutlery
+```
+```{r}
+# choose plastic straws and count frequency
+frequency_plastic_straws <- single_use_data %>%
+  group_by(`Plastic Straws`) %>%
+  summarise(Freq = n()) %>%
+  as.data.frame()
+
+# Plot the bar chart
+plastic_straws <- ggplot(data = frequency_plastic_straws , aes(x = `Plastic Straws`, y = Freq)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  theme_minimal() +
+  labs(x = "Plastic Straws", y = "Frequency", title = "Usage Patterns of Plastic Straws")
+
+plastic_straws
+```
+
+```{r}
+# choose styrofoam containerss and count frequency
+frequency_styrofoam_containers <- single_use_data %>%
+  group_by(`Styrofoam Containers`) %>%
+  summarise(Freq = n()) %>%
+  as.data.frame()
+
+# Plot the bar chart
+styrofoam_containers <- ggplot(data = frequency_styrofoam_containers , aes(x = `Styrofoam Containers`, y = Freq)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  theme_minimal() +
+  labs(x = "Styrofoam Containers", y = "Frequency", title = "Usage Patterns of Styrofoam Containers")
+
+styrofoam_containers
 ```
 
 # Model
