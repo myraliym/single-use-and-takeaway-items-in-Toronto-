@@ -51,28 +51,31 @@ single_use_data_clean<- na.omit(single_use_data)
 # save the data frame as a csv file
 write_xlsx(single_use_data_clean, here::here("outputs/data/single_use_data_2018.xlsx"))
 
+# Remove first line
+raw_data_2019<- raw_data_2019[-1, ]
+
 # extract the income and race columns from 2019 data
-data_2019 <- raw_data_2019[, c("Q1_1 Disposable Hot To-Go Cups, such as coffee cups", 
-                                     "Q1_2 Disposable Cold To-Go Cups, such as pop cups",
-                                     "Q1_3 Plastics Bags", 
-                                     "Q1_4 Paper Bags", 
-                                     "Q1_5 Black Plastic Containers",
-                                     "Q1_6 White, Clear, or Any Colour Plastic Containers",
-                                     "Q1_7 Disposable Cutlery",
-                                     "Q1_8 Plastic Straws", 
-                                     "Q1_9 Styrofoam Containers")]
+data_2019 <- raw_data_2019[, c("X1..How.frequently.do.you.use.the.following.single.use.and.takeaway.items.", 
+                               "X.5",
+                               "X.6", 
+                               "X.7", 
+                               "X.8",
+                               "X.9",
+                               "X.10",
+                               "X.11", 
+                               "X.12")]
 # Rename the columns
 data_2019  <- data_2019  %>%
   rename(
-    "Hot To-Go Cups" = `Q1_1 Disposable Hot To-Go Cups, such as coffee cups`,
-    "Cold To-Go Cups" = `Q1_2 Disposable Cold To-Go Cups, such as pop cups`,
-    "Plastic Bags" = `Q1_3 Plastics Bags`,
-    "Paper Bags" = `Q1_4 Paper Bags`,
-    "Black Plastic Containers" = `Q1_5 Black Plastic Containers`,
-    "Other Colour Plastic Containers" = `Q1_6 White, Clear, or Any Colour Plastic Containers`,
-    "Disposable Cutlery" = `Q1_7 Disposable Cutlery`,
-    "Plastic Straws" = `Q1_8 Plastic Straws`,
-    "Styrofoam Containers" = `Q1_9 Styrofoam Containers`
+    "Hot To-Go Cups" = `X1..How.frequently.do.you.use.the.following.single.use.and.takeaway.items.`,
+    "Cold To-Go Cups" = `X.5`,
+    "Plastic Bags" = `X.6`,
+    "Paper Bags" = `X.7`,
+    "Black Plastic Containers" = `X.8`,
+    "Other Colour Plastic Containers" = `X.9`,
+    "Disposable Cutlery" = `X.10`,
+    "Plastic Straws" = `X.11`,
+    "Styrofoam Containers" = `X.12`
   )
 
 # Remove rows with any 'n/a' or NA values
