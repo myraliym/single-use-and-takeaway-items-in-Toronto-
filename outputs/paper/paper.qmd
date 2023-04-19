@@ -67,19 +67,19 @@ hot_to_go
 ```
 
 ```{r}
-# choose disposable hot to-go cups and count frequency
+# choose disposable cold to-go cups and count frequency
 frequency_table <- single_use_data %>%
-  group_by(`2.1. Disposable Hot To-Go Cups, such as coffee cups`) %>%
+  group_by(`2.2. Disposable Cold To-Go Cups, such as pop cups`) %>%
   summarise(Freq = n()) %>%
   as.data.frame()
 
 # Plot the bar chart
-hot_to_go <- ggplot(data = frequency_table, aes(x = `2.1. Disposable Hot To-Go Cups, such as coffee cups`, y = Freq)) +
+cold_to_go <- ggplot(data = frequency_table, aes(x = `2.2. Disposable Cold To-Go Cups, such as pop cups`, y = Freq)) +
   geom_bar(stat = "identity", fill = "steelblue") +
   theme_minimal() +
-  labs(x = "Disposable Hot To-Go Cups, such as coffee cups", y = "Frequency", title = "Usage Patterns of Disposable Hot To-Go Cups")
+  labs(x = "Disposable Cold To-Go Cups, such as coffee cups", y = "Frequency", title = "Usage Patterns of Disposable Cold To-Go Cups")
 
-hot_to_go 
+cold_to_go 
 ```
 
 
