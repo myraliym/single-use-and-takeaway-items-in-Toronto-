@@ -1,5 +1,5 @@
 #### Preamble ####
-# Purpose: data cleaning for figure 1
+# Purpose: data cleaning for Usage Patterns
 # Author: Myra Li
 # Data: 11 April 2023 
 # Contact: myra.li@mail.utoronto.ca
@@ -49,7 +49,7 @@ single_use_data_clean<- na.omit(single_use_data)
 
 
 # save the data frame as a csv file
-write_xlsx(single_use_data_clean, here::here("outputs/data/single_use_data_2018.xlsx"))
+write_xlsx(single_use_data_clean, here::here("outputs/data/usage_pattern_data_2018.xlsx"))
 
 # Remove first line
 raw_data_2019<- raw_data_2019[-1, ]
@@ -82,4 +82,4 @@ data_2019  <- data_2019  %>%
 data_2019<- na.omit(data_2019)
 
 # save the data frame as a csv file
-write.csv(data_2019, here::here("outputs/data/single_use_data_2019.csv"))
+write.csv(data_2019, here::here("outputs/data/usage_pattern_data_2019.csv"))

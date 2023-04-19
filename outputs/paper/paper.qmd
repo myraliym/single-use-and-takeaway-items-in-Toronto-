@@ -45,26 +45,71 @@ library(haven)
 library(ggplot2)
 library(scales)
 ### Input data ###
-single_use_data <- read_xlsx(here::here("outputs/data/single_use_data_2018.xlsx"))
-single_use_data <- read_xlsx(here::here("outputs/data/single_use_data_2019.xlsx"))
+hot_to_go <- read.csv(here::here("outputs/data/Fig1_hot_to_go.csv"))
+
 ```
 
 
 
 ```{r}
+Fhot_to_go <- ggplot(data = hot_to_go, aes(x = Hot_To_Go_Cups, y = Percentage, fill = as.factor(Year))) +
+  geom_bar(stat = "identity", position = "dodge") +
+  theme_minimal() +
+  labs(x = "Disposable Hot To-Go Cups, such as coffee cups", y = "Percentage (%)", title = "Usage Patterns of Disposable Hot To-Go Cups in 2018 and 2019") +
+  scale_fill_manual(values = c("steelblue", "darkorange"), name = "Year", labels = c("2018", "2019"))
+
+Fhot_to_go
+```
+```{r}
 # choose disposable hot to-go cups and count frequency
-frequency_table_hot <- single_use_data %>%
-  group_by(`Hot To-Go Cups`) %>%
+frequency_table_hot <- single_use_data_2019 %>%
+  group_by(`Hot.To.Go.Cups`) %>%
   summarise(Freq = n()) %>%
   as.data.frame()
 
+# Calculate the total count
+total_count <- sum(frequency_table_hot$Freq)
+
+# Add a new column to calculate the percentage for each category
+frequency_table_hot$Percentage <- (frequency_table_hot$Freq / total_count) * 100
+frequency_table_hot
 # Plot the bar chart
-hot_to_go <- ggplot(data = frequency_table_hot, aes(x = `Hot To-Go Cups`, y = Freq)) +
+hot_to_go_2019 <- ggplot(data = frequency_table_hot, aes(x = `Hot.To.Go.Cups`, y = Percentage)) +
   geom_bar(stat = "identity", fill = "steelblue") +
   theme_minimal() +
-  labs(x = "Disposable Hot To-Go Cups, such as coffee cups", y = "Frequency", title = "Usage Patterns of Disposable Hot To-Go Cups")
+  labs(x = "Disposable Hot To-Go Cups, such as coffee cups", y = "Percentage (%)", title = "Usage Patterns of Disposable Hot To-Go Cups in 2019") 
 
-hot_to_go 
+hot_to_go_2019
+```
+```{r}
+# Calculate frequency and percentage for 2018 data
+frequency_table_hot_2018 <- single_use_data %>%
+  group_by(`Hot To-Go Cups`) %>%
+  summarise(Freq = n()) %>%
+  mutate(Year = 2018) %>%
+  as.data.frame()
+
+total_count_2018 <- sum(frequency_table_hot_2018$Freq)
+frequency_table_hot_2018$Percentage <- (frequency_table_hot_2018$Freq / total_count_2018) * 100
+
+# Calculate frequency and percentage for 2019 data
+frequency_table_hot_2019 <- single_use_data_2019 %>%
+  group_by(`Hot.To.Go.Cups`) %>%
+  summarise(Freq = n()) %>%
+  mutate(Year = 2019) %>%
+  as.data.frame()
+
+total_count_2019 <- sum(frequency_table_hot_2019$Freq)
+frequency_table_hot_2019$Percentage <- (frequency_table_hot_2019$Freq / total_count_2019) * 100
+
+# Rename columns to be consistent
+colnames(frequency_table_hot_2018) <- c("Hot_To_Go_Cups", "Freq", "Year", "Percentage")
+colnames(frequency_table_hot_2019) <- c("Hot_To_Go_Cups", "Freq", "Year", "Percentage")
+
+# Combine 2018 and 2019 data into one data frame
+combined_data <- dplyr::bind_rows(frequency_table_hot_2018, frequency_table_hot_2019)
+
+combined_data
 ```
 
 ```{r}
