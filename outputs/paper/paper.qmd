@@ -47,6 +47,7 @@ library(scales)
 ### Input data ###
 hot_to_go <- read.csv(here::here("outputs/data/Fig1_hot_to_go.csv"))
 cold_to_go <- read.csv(here::here("outputs/data/Fig2_cold_to_go.csv"))
+plastic_bags <- read.csv(here::here("outputs/data/Fig3_plastics_bags.csv"))
 ```
 
 
@@ -70,7 +71,13 @@ Fcold_to_go <- ggplot(data = cold_to_go, aes(x = Cold_To_Go_Cups, y = Percentage
 Fcold_to_go
 ```
 ```{r}
+Fplastic <- ggplot(data = plastic_bags, aes(x = Plastic_Bags, y = Percentage, fill = as.factor(Year))) +
+  geom_bar(stat = "identity", position = "dodge") +
+  theme_minimal() +
+  labs(x = "Plastic Bags", y = "Percentage (%)", title = "Usage Patterns of Plastic Bags in 2018 and 2019") +
+  scale_fill_manual(values = c("steelblue", "darkorange"), name = "Year", labels = c("2018", "2019"))
 
+Fplastic
 ```
 
 ```{r}
