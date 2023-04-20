@@ -31,8 +31,8 @@ cleaned_data<- raw_data_2019[, c("X.24",
 cleaned_data  <- cleaned_data  %>%
   rename(
     "single_use_utensil_bylaw_opinion" = `X.24`,
-    "age" = `X`,
-    "gender" = `X.1`,
+    "gender" = `X`,
+    "age" = `X.1`,
     "education" = `X.2`,
     "household_income" = `X.3`,
     "location" = `X.4`)
@@ -40,5 +40,11 @@ cleaned_data  <- cleaned_data  %>%
 # remove rows with any 'n/a' or NA values
 cleaned_data<- na.omit(cleaned_data)
 cleaned_data<- cleaned_data[-1, ]
+
+# change the value "Don?t know" to "Don't know"
+cleaned_data$single_use_utensil_bylaw_opinion <- ifelse(
+  cleaned_data$single_use_utensil_bylaw_opinion == "Don?t know", 
+  "Don't know", 
+  cleaned_data$single_use_utensil_bylaw_opinion)
 
 write.csv(cleaned_data, here::here("outputs/data/cleaned_data.csv"))

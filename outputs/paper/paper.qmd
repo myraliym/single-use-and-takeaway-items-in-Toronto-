@@ -23,7 +23,6 @@ number-sections: true
 ## Data Cleaning
 ## Data Visualization
 ```{r setup, include=FALSE}
-
 knitr::opts_chunk$set(echo = FALSE)
 knitr::opts_chunk$set(warning = FALSE)
 knitr::opts_chunk$set(message = FALSE)
@@ -38,6 +37,7 @@ library(nnet)
 library(readr)
 library(knitr)
 library(kableExtra)
+
 
 ### Input data ###
 hot_to_go <- read.csv(here::here("outputs/data/Fig1_hot_to_go.csv"))
