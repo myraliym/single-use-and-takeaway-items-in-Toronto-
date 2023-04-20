@@ -9,15 +9,8 @@ date-format: "D MMMM YYYY"
 abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
 format: pdf
 number-sections: true
-bibliography: references.bib
+#bibliography: references.bib
 ---
-
-```{r}
-#| include: false
-#| warning: false
-#| message: false
-library(tidyverse)
-```
 
 
 # Introduction
@@ -26,8 +19,9 @@ library(tidyverse)
 
 # Data {#sec-data}
 
-
-
+## Data Source and Collection
+## Data Cleaning
+## Data Visualization
 ```{r setup, include=FALSE}
 
 knitr::opts_chunk$set(echo = FALSE)
@@ -35,25 +29,27 @@ knitr::opts_chunk$set(warning = FALSE)
 knitr::opts_chunk$set(message = FALSE)
 knitr::opts_chunk$set(fig.width=6.5, fig.height=2.8) 
 # loading in relevant libraries
-library(cowplot)
 library(tidyverse)
 library(dplyr, warn.conflicts = FALSE)
 library(tidyr)
-library(data.table)
-library(lubridate)
 library(haven)
 library(ggplot2)
-library(scales)
+library(nnet)
+library(readr)
+library(knitr)
+library(kableExtra)
+
 ### Input data ###
 hot_to_go <- read.csv(here::here("outputs/data/Fig1_hot_to_go.csv"))
-cold_to_go <- read.csv(here::here("outputs/data/Fig2_cold_to_go.csv"))
-plastic_bags <- read.csv(here::here("outputs/data/Fig3_plastics_bags.csv"))
+raw_data <- read.csv(here::here("outputs/data/cleaned_data.csv"))
+
 ```
 
 
 
 ```{r}
-Fhot_to_go <- ggplot(data = hot_to_go, aes(x = Hot_To_Go_Cups, y = Percentage, fill = as.factor(Year))) +
+Fhot_to_go <- 
+  ggplot(data = hot_to_go, aes(x = Hot_To_Go_Cups, y = Percentage, fill = as.factor(Year))) +
   geom_bar(stat = "identity", position = "dodge") +
   theme_minimal() +
   labs(x = "Disposable Hot To-Go Cups, such as coffee cups", y = "Percentage (%)", title = "Usage Patterns of Disposable Hot To-Go Cups in 2018 and 2019") +
@@ -62,206 +58,121 @@ Fhot_to_go <- ggplot(data = hot_to_go, aes(x = Hot_To_Go_Cups, y = Percentage, f
 Fhot_to_go
 ```
 ```{r}
-Fcold_to_go <- ggplot(data = cold_to_go, aes(x = Cold_To_Go_Cups, y = Percentage, fill = as.factor(Year))) +
-  geom_bar(stat = "identity", position = "dodge") +
-  theme_minimal() +
-  labs(x = "Disposable Cold To-Go Cups, such as pop cups", y = "Percentage (%)", title = "Usage Patterns of Disposable Cold To-Go Cups in 2018 and 2019") +
-  scale_fill_manual(values = c("steelblue", "darkorange"), name = "Year", labels = c("2018", "2019"))
 
-Fcold_to_go
-```
-```{r}
-Fplastic <- ggplot(data = plastic_bags, aes(x = Plastic_Bags, y = Percentage, fill = as.factor(Year))) +
-  geom_bar(stat = "identity", position = "dodge") +
-  theme_minimal() +
-  labs(x = "Plastic Bags", y = "Percentage (%)", title = "Usage Patterns of Plastic Bags in 2018 and 2019") +
-  scale_fill_manual(values = c("steelblue", "darkorange"), name = "Year", labels = c("2018", "2019"))
-
-Fplastic
 ```
 
 ```{r}
-# choose disposable hot to-go cups and count frequency
-frequency_table_cold <- single_use_data %>%
-  group_by(`Cold To-Go Cups`) %>%
-  summarise(Freq = n()) %>%
-  as.data.frame()
 
-# Plot the bar chart
-cold_to_go <- ggplot(data = frequency_table_cold, aes(x = `Cold To-Go Cups`, y = Freq)) +
-  geom_bar(stat = "identity", fill = "steelblue") +
-  theme_minimal() +
-  labs(x = "Disposable Cold To-Go Cups, such as coffee cups", y = "Frequency", title = "Usage Patterns of Disposable Cold To-Go Cups")
+```
 
-cold_to_go
+```{r}
+
 ```
 
 
 ```{r}
-# choose disposable hot to-go cups and count frequency
-frequency_table_plastic <- single_use_data %>%
-  group_by(`Plastic Bags`) %>%
-  summarise(Freq = n()) %>%
-  as.data.frame()
 
-# Plot the bar chart
-plastic_bags <- ggplot(data = frequency_table_plastic, aes(x = `Plastic Bags`, y = Freq)) +
-  geom_bar(stat = "identity", fill = "steelblue") +
-  theme_minimal() +
-  labs(x = "Plastic Bags", y = "Frequency", title = "Usage Patterns of Plastic Bags")
-
-plastic_bags
-```
-```{r}
-# choose paper bags and count frequency
-frequency_table_paper_bags <- single_use_data %>%
-  group_by(`Paper Bags`) %>%
-  summarise(Freq = n()) %>%
-  as.data.frame()
-
-# Plot the bar chart
-paper_bags <- ggplot(data = frequency_table_paper_bags, aes(x = `Paper Bags`, y = Freq)) +
-  geom_bar(stat = "identity", fill = "steelblue") +
-  theme_minimal() +
-  labs(x = "Paper Bags", y = "Frequency", title = "Usage Patterns of Paper Bags")
-
-paper_bags
-```
-```{r}
-# choose black plastic containers and count frequency
-frequency_black_plastic_containers <- single_use_data %>%
-  group_by(`Black Plastic Containers`) %>%
-  summarise(Freq = n()) %>%
-  as.data.frame()
-
-# Plot the bar chart
-black_plastic_containers <- ggplot(data = frequency_black_plastic_containers, aes(x = `Black Plastic Containers`, y = Freq)) +
-  geom_bar(stat = "identity", fill = "steelblue") +
-  theme_minimal() +
-  labs(x = "Black Plastic Containers", y = "Frequency", title = "Usage Patterns of Black Plastic Containers")
-
-black_plastic_containers
 ```
 
 ```{r}
-# choose other plastic containers and count frequency
-frequency_other_plastic_containers <- single_use_data %>%
-  group_by(`Other Colour Plastic Containers`) %>%
-  summarise(Freq = n()) %>%
-  as.data.frame()
 
-# Plot the bar chart
-other_plastic_containers <- ggplot(data = frequency_other_plastic_containers, aes(x = `Other Colour Plastic Containers`, y = Freq)) +
-  geom_bar(stat = "identity", fill = "steelblue") +
-  theme_minimal() +
-  labs(x = "Other Colour Plastic Containers", y = "Frequency", title = "Usage Patterns of Other Colour Plastic Containers")
-
-other_plastic_containers
 ```
 
 ```{r}
-# choose disposable cutlery and count frequency
-frequency_disposable_cutlery <- single_use_data %>%
-  group_by(`Disposable Cutlery`) %>%
-  summarise(Freq = n()) %>%
-  as.data.frame()
 
-# Plot the bar chart
-disposable_cutlery <- ggplot(data = frequency_disposable_cutlery , aes(x = `Disposable Cutlery`, y = Freq)) +
-  geom_bar(stat = "identity", fill = "steelblue") +
-  theme_minimal() +
-  labs(x = "Disposable Cutlery", y = "Frequency", title = "Usage Patterns of Disposable Cutlery")
-
-disposable_cutlery
-```
-```{r}
-# choose plastic straws and count frequency
-frequency_plastic_straws <- single_use_data %>%
-  group_by(`Plastic Straws`) %>%
-  summarise(Freq = n()) %>%
-  as.data.frame()
-
-# Plot the bar chart
-plastic_straws <- ggplot(data = frequency_plastic_straws , aes(x = `Plastic Straws`, y = Freq)) +
-  geom_bar(stat = "identity", fill = "steelblue") +
-  theme_minimal() +
-  labs(x = "Plastic Straws", y = "Frequency", title = "Usage Patterns of Plastic Straws")
-
-plastic_straws
 ```
 
 ```{r}
-# choose styrofoam containerss and count frequency
-frequency_styrofoam_containers <- single_use_data %>%
-  group_by(`Styrofoam Containers`) %>%
-  summarise(Freq = n()) %>%
-  as.data.frame()
 
-# Plot the bar chart
-styrofoam_containers <- ggplot(data = frequency_styrofoam_containers , aes(x = `Styrofoam Containers`, y = Freq)) +
-  geom_bar(stat = "identity", fill = "steelblue") +
-  theme_minimal() +
-  labs(x = "Styrofoam Containers", y = "Frequency", title = "Usage Patterns of Styrofoam Containers")
+```
 
-styrofoam_containers
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
 ```
 
 # Model
-
-The goal of our modelling strategy is twofold. Firstly,...
-
-Here we briefly describe the Bayesian analysis model used to investigate... Background details and diagnostics are included in [Appendix -@sec-model-details].
-
-## Model set-up
-
-Define $y_i$ as the number of seconds that the plane remained aloft. Then $\beta_i$ is the wing width and $\gamma_i$ is the wing length, both measured in millimeters.  
-
-\begin{align} 
-y_i|\mu_i, \sigma &\sim \mbox{Normal}(\mu_i, \sigma) \\
-\mu_i &= \alpha + \beta_i + \gamma_i\\
-\alpha &\sim \mbox{Normal}(0, 2.5) \\
-\beta &\sim \mbox{Normal}(0, 2.5) \\
-\gamma &\sim \mbox{Normal}(0, 2.5) \\
-\sigma &\sim \mbox{Exponential}(1)
-\end{align}
-
-We run the model in R [@citeR] using the `rstanarm` package of @rstanarm. We use the default priors from `rstanarm`.
-
-
-### Model justification
-
-We expect a positive relationship between the size of the wings and time spent aloft. In particular...
-
-We can use maths by including latex between dollar signs, for instance $\theta$.
-
+Our final logistic regression model is as follows:
+$$log(\frac{\hat{p}_i}{\hat{p}_{ref}}) = \beta_{i0} + \beta_{i1}x_{age} + \beta_{i2}x_{gender} + \beta_{i3}x_{education} + \beta_{i4}x_{household_income}+ \beta_{i5}x_{location}$$
+The multinomial logistic regression model estimates the probability of a person's opinion on a by-request/ask-first bylaw aimed at reducing single-use eating utensil consumption in the City of Toronto. The possible opinions include: Strongly Support, Somewhat Support, Neither Support nor Oppose, Somewhat Oppose, Strongly Oppose, and Don't Know. The model takes into account the following 5 predictor variables:
+                              
+1) Age is a continuous numeric variable representing the individual's age.
+                                        
+2) Gender is a binary variable (female/male) indicating a person's gender.
+                                                
+3) Education is a categorical variable representing the highest level of education a respondent had at the time of taking the survey. Categories include Graduated from college/CEGEP/Trade School, Graduated high school, Primary school or less, Some college/CEGEP/Trade School, Some high school, Some university but did not finish, University graduate degree, and University undergraduate degree.
+                                               
+4) Household income is a categorical variable indicating the respondent's household income range. Categories encompass different income ranges and a "Prefer not to answer" option.
+                                                     
+5) Location is a categorical variable representing the respondent's location within the City of Toronto. Categories include Toronto, East York, Etobicoke, North York, Scarborough, and York.
 
 # Results
 
-Our results are summarized in @tbl-modelresults.
+```{r}
+#| message: false
+#| warning: false
+#| echo: false
+#| tbl-cap: "Number and Proportion of people opinion on a by-request / ask first bylaw to reduce the use of single-use eating utensils in the City of Toronto"
+#| label: tbl-number
+
+# generate count and percentage
+result_table <- raw_data %>%
+  group_by(`single_use_utensil_bylaw_opinion`) %>%
+  summarise(count = n()) %>%
+  mutate(percentage = count / sum(count) * 100) %>%
+  as.data.frame()
+
+# change the value "Don?t know" to "Don't know"
+result_table$single_use_utensil_bylaw_opinion <- ifelse(result_table$single_use_utensil_bylaw_opinion == "Don?t know", "Don't know", result_table$single_use_utensil_bylaw_opinion)
+
+# print the table
+kable(result_table)
+```
+(@tbl-number) presented summarizes the choices made by respondents regarding single-use takeaway items. The results indicate that 47.6% of respondents showed strong support for a by-request/ask-first bylaw to reduce the use of single-use eating utensils in the City of Toronto. Additionally, 27.9% of respondents somewhat supported the bylaw, while 11.4% of them neither supported nor opposed it. However, 6.2% of respondents somewhat opposed the bylaw, and 4.5% strongly opposed it. These findings suggest that while there is a significant level of support for the bylaw, there are still some concerns or reservations that need to be addressed.
+
+Overall, the analysis suggests that there is mixed support for the single-use utensil bylaw, with a slight majority of respondents showing strong support for it. It is interesting to note that a significant percentage of respondents are still on the fence, as they neither support nor oppose the bylaw. This could indicate a lack of awareness or understanding of the issues surrounding single-use utensils and their impact on the environment.
 
 ```{r}
-#| echo: false
-#| eval: true
-#| warning: false
-#| message: false
-library(rstanarm)
-first_model <-
-  readRDS(file = here::here("outputs/models/first_model.rds"))
+# Create the multinomial logistic regression model
+model1 <- multinom(single_use_utensil_bylaw_opinion ~ age + gender + education + household_income + location, data = raw_data)
+
+# Extract the coefficients and standard errors from the model
+coefs <- coef(summary(model1))
+
+# Calculate exponentiated coefficients and confidence intervals
+coefs_exp <- exp(coefs)
+conf_int <- confint(model1)
+conf_int_exp <- exp(conf_int)
+
+# Combine exponentiated coefficients and confidence intervals
+coefs_ci_exp <- cbind(coefs_exp, conf_int_exp)
+coefs_df_exp <- as.data.frame(coefs_ci_exp)
+coefs_df_exp$variable <- rownames(coefs_df_exp)
+
+# Melt the data frame to a long format
+coefs_melted_exp <- reshape2::melt(coefs_df_exp, id.vars = "variable")
+colnames(coefs_melted_exp) <- c("variable", "type", "value")
+
+# Filter only the exponentiated estimates and lower/upper bounds
+coefs_melted_filtered_exp <- coefs_melted_exp[coefs_melted_exp$type %in% c("Estimate", "2.5 %", "97.5 %"),]
+
+
+
 ```
 
 ```{r}
-#| echo: false
-#| eval: true
-#| label: tbl-modelresults
-#| tbl-cap: "Explanatory models of flight time based on wing width and wing length"
-#| warning: false
-modelsummary::modelsummary(
-  list(
-    "First model" = first_model
-  ),
-  statistic = "mad",
-  fmt = 2
-)
+
+```
+
+```{r}
+
 ```
 
 
@@ -294,46 +205,22 @@ Weaknesses and next steps should also be included.
 
 ## Posterior predictive check
 
-In @fig-ppcheckandposteriorvsprior-1 we implement a posterior predictive check. This shows...
+In  we implement a posterior predictive check. This shows...
 
-In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. This shows... 
+In  we compare the posterior with the prior. This shows... 
 
 ```{r}
-#| eval: true
-#| echo: false
-#| message: false
-#| warning: false
-#| label: fig-ppcheckandposteriorvsprior
-#| layout-ncol: 2
-#| fig-cap: "Examining how the model fits, and is affected by, the data"
-#| fig-subcap: ["Posterior prediction check", "Comparing the posterior with the prior"]
-pp_check(first_model) +
-  theme_classic() +
-  theme(legend.position = "bottom")
-posterior_vs_prior(first_model) +
-  theme_minimal() +
-  scale_color_brewer(palette = "Set1") +
-  theme(legend.position = "bottom") +
-  coord_flip()
+
 ```
 
 ## Diagnostics
 
-@fig-stanareyouokay-1 is a trace plot. It shows... This suggests...
+is a trace plot. It shows... This suggests...
 
-@fig-stanareyouokay-2 is a Rhat plot. It shows... This suggests...
+is a Rhat plot. It shows... This suggests...
 
 ```{r}
-#| echo: false
-#| eval: true
-#| message: false
-#| warning: false
-#| label: fig-stanareyouokay
-#| fig-cap: "Checking the convergence of the MCMC algorithm"
-#| fig-subcap: ["Trace plot", "Rhat plot"]
-#| layout-ncol: 2
-plot(first_model, "trace")
-plot(first_model, "rhat")
+
 ```
 
 
