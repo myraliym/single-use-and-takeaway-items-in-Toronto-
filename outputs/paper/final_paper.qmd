@@ -232,33 +232,93 @@ ggplot(result, aes(x = education, y = percentage, fill = education)) +
 
 
 ```{r}
+# Subset the data frame to include only the necessary columns and select only "Strongly support" opinions
+income <- subset(raw_data, select = c("single_use_utensil_bylaw_opinion", "household_income"))
+income <- subset(income, single_use_utensil_bylaw_opinion == "Strongly support")
+
+# Convert the opinion column to a factor with the desired order
+income$single_use_utensil_bylaw_opinion <- factor(income$single_use_utensil_bylaw_opinion, levels = opinion_order)
+
+# Define the order of the income categories
+income_order <- c("Less than $5,000", "$5,000-$9,999", "$10,000-$14,999", "$15,000-$19,999", "$20,000-$24,999", "$25,000-$29,999", "$30,000-$34,999", "$35,000-$39,999", "$40,000-$44,999", "$45,000-$49,999", "$50,000-$54,999", "$55,000-$59,999", "$60,000-$64,999", "$65,000-$69,999", "$70,000-$74,999","$75,000-$79,999", "$80,000-$84,999", "$85,000-$89,999", "$90,000-$94,999", "$95,000-$99,999", "$100,000-$124,999", "$125,000-$149,999", "$150,000-$199,999", "$200,000-$249,000", "$250,000 or more", "Prefer not to answer")
+
+# Convert the income column to a factor with the desired order
+income$household_income <- factor(income$household_income, levels = income_order)
+
+# Generate a bar chart with household_income on the x axis and count on the y axis, colored by opinion
+ggplot(income, aes(x = household_income, y = ..count.., fill = single_use_utensil_bylaw_opinion)) +
+  geom_bar(stat = "count", position = "dodge") +
+  labs(title = "Strongly Support Opinions on Single-Use Utensil Bylaw by Household Income", 
+       x = "Household Income", y = "Count", fill = "Opinion") +
+  scale_fill_manual(values = c("#F8766D")) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+```{r}
+
+
+```
+
+```{r}
 
 # Subset the data frame to include only the necessary columns
-Dont_know <- subset(raw_data, select = c("single_use_utensil_bylaw_opinion", "education"))
+strongly_support<- subset(raw_data, select = c("single_use_utensil_bylaw_opinion", "location"))
 
-# Filter the data frame for responses with "Don't know" opinion
-Dont_know <- Dont_know %>% 
-  filter(single_use_utensil_bylaw_opinion == "Don't know")
+# Filter the data frame for responses with "Strongly support" opinion
+strongly_support <- strongly_support %>% 
+  filter(single_use_utensil_bylaw_opinion == "Strongly support")
 
-# Count the number of responses in each education level
-education_counts <- count(Dont_know, education)
+# Count the number of responses in each location level
+location_counts <- count(strongly_support, location)
 
 # Calculate the total number of responses
-total_responses <- sum(education_counts$n)
+total_responses <- sum(location_counts$n)
 
-# Calculate the percentage of respondents for each education level
-percentages <- education_counts$n / total_responses * 100
+# Calculate the percentage of respondents for each location level
+percentages <- location_counts$n / total_responses * 100
 
 # Combine the counts and percentages into a data frame
-result <- data.frame(education = education_counts$education, count = education_counts$n, percentage = percentages)
+result <- data.frame(location = location_counts$location, count = location_counts$n, percentage = percentages)
 
 # Generate the grouped bar chart
-ggplot(result, aes(x = education, y = percentage, fill = education)) +
+ggplot(result, aes(x = location, y = percentage, fill = location)) +
   geom_bar(stat = "identity", position = position_dodge(width = 0.8), width = 0.7) +
-  labs(title = "Opinions on Single-Use Utensil Bylaw: Don't know", 
-       x = "Education Level", y = "Percentage", fill = "Education") +
+  labs(title = "Opinions on Single-Use Utensil Bylaw: Strongly support", 
+       x = "Location", y = "Percentage", fill = "Education") +
   scale_fill_manual(values = c("#F0E442", "#0072B2", "#D55E00", "#009E73", "#F8766D", "#00BFC4", "#7CAE00", "#C77CFF"))  
 ```
+
+```{r}
+# Subset the data frame to include only the necessary columns
+strongly_oppose<- subset(raw_data, select = c("single_use_utensil_bylaw_opinion", "location"))
+
+# Filter the data frame for responses with "Strongly oppose" opinion
+strongly_oppose <- strongly_oppose %>% 
+  filter(single_use_utensil_bylaw_opinion == "Strongly oppose")
+
+# Count the number of responses in each location level
+location_counts <- count(strongly_oppose, location)
+
+# Calculate the total number of responses
+total_responses <- sum(location_counts$n)
+
+# Calculate the percentage of respondents for each location level
+percentages <- location_counts$n / total_responses * 100
+
+# Combine the counts and percentages into a data frame
+result <- data.frame(location = location_counts$location, count = location_counts$n, percentage = percentages)
+
+# Generate the grouped bar chart
+ggplot(result, aes(x = location, y = percentage, fill = location)) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.8), width = 0.7) +
+  labs(title = "Opinions on Single-Use Utensil Bylaw: Strongly oppose", 
+       x = "Location", y = "Percentage", fill = "Education") +
+  scale_fill_manual(values = c("#F0E442", "#0072B2", "#D55E00", "#009E73", "#F8766D", "#00BFC4", "#7CAE00", "#C77CFF"))  
+```
+
+
+
 
 # Model
 Our final logistic regression model is as follows:
