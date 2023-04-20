@@ -90,44 +90,174 @@ ggplot(age, aes(x = age, y = ..count.., group = single_use_utensil_bylaw_opinion
 ```
 
 ```{r}
-library(ggplot2)
+# Subset the data frame to include only the necessary columns
+strongly_support <- subset(raw_data, select = c("single_use_utensil_bylaw_opinion", "education"))
+
+# Filter the data frame for responses with "Strongly support" opinion
+strongly_support <- strongly_support %>% 
+  filter(single_use_utensil_bylaw_opinion == "Strongly support")
+
+# Count the number of responses in each education level
+education_counts <- count(strongly_support, education)
+
+# Calculate the total number of responses
+total_responses <- sum(education_counts$n)
+
+# Calculate the percentage of respondents for each education level
+percentages <- education_counts$n / total_responses * 100
+
+# Combine the counts and percentages into a data frame
+result <- data.frame(education = education_counts$education, count = education_counts$n, percentage = percentages)
+
+# Generate the grouped bar chart
+ggplot(result, aes(x = education, y = percentage, fill = education)) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.8), width = 0.7) +
+  labs(title = "Opinions on Single-Use Utensil Bylaw: Strongly Support", 
+       x = "Education Level", y = "Percentage", fill = "Education") +
+  scale_fill_manual(values = c("#F0E442", "#0072B2", "#D55E00", "#009E73", "#F8766D", "#00BFC4", "#7CAE00", "#C77CFF"))  
+
+```
+```{r}
+# Subset the data frame to include only the necessary columns
+somewhat_support <- subset(raw_data, select = c("single_use_utensil_bylaw_opinion", "education"))
+
+# Filter the data frame for responses with "Somewhat support" opinion
+somewhat_support<- somewhat_support %>% 
+  filter(single_use_utensil_bylaw_opinion == "Somewhat support")
+
+# Count the number of responses in each education level
+education_counts <- count(somewhat_support, education)
+
+# Calculate the total number of responses
+total_responses <- sum(education_counts$n)
+
+# Calculate the percentage of respondents for each education level
+percentages <- education_counts$n / total_responses * 100
+
+# Combine the counts and percentages into a data frame
+result <- data.frame(education = education_counts$education, count = education_counts$n, percentage = percentages)
+
+# Generate the grouped bar chart
+ggplot(result, aes(x = education, y = percentage, fill = education)) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.8), width = 0.7) +
+  labs(title = "Opinions on Single-Use Utensil Bylaw: Somewhat Support", 
+       x = "Education Level", y = "Percentage", fill = "Education") +
+  scale_fill_manual(values = c("#F0E442", "#0072B2", "#D55E00", "#009E73", "#F8766D", "#00BFC4", "#7CAE00", "#C77CFF"))  
+```
+
+```{r}
+# Subset the data frame to include only the necessary columns
+neither_support_nor_oppose<- subset(raw_data, select = c("single_use_utensil_bylaw_opinion", "education"))
+
+# Filter the data frame for responses with "Neither support nor oppose" opinion
+neither_support_nor_oppose <- neither_support_nor_oppose %>% 
+  filter(single_use_utensil_bylaw_opinion == "Neither support nor oppose")
+
+# Count the number of responses in each education level
+education_counts <- count(neither_support_nor_oppose, education)
+
+# Calculate the total number of responses
+total_responses <- sum(education_counts$n)
+
+# Calculate the percentage of respondents for each education level
+percentages <- education_counts$n / total_responses * 100
+
+# Combine the counts and percentages into a data frame
+result <- data.frame(education = education_counts$education, count = education_counts$n, percentage = percentages)
+
+# Generate the grouped bar chart
+ggplot(result, aes(x = education, y = percentage, fill = education)) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.8), width = 0.7) +
+  labs(title = "Opinions on Single-Use Utensil Bylaw: Neither support nor oppose", 
+       x = "Education Level", y = "Percentage", fill = "Education") +
+  scale_fill_manual(values = c("#F0E442", "#0072B2", "#D55E00", "#009E73", "#F8766D", "#00BFC4", "#7CAE00", "#C77CFF"))  
+```
+
+
+```{r}
+# Subset the data frame to include only the necessary columns
+somewhat_oppose <- subset(raw_data, select = c("single_use_utensil_bylaw_opinion", "education"))
+
+# Filter the data frame for responses with "Somewhat oppose" opinion
+somewhat_oppose <- somewhat_oppose %>% 
+  filter(single_use_utensil_bylaw_opinion == "Somewhat oppose")
+
+# Count the number of responses in each education level
+education_counts <- count(somewhat_oppose, education)
+
+# Calculate the total number of responses
+total_responses <- sum(education_counts$n)
+
+# Calculate the percentage of respondents for each education level
+percentages <- education_counts$n / total_responses * 100
+
+# Combine the counts and percentages into a data frame
+result <- data.frame(education = education_counts$education, count = education_counts$n, percentage = percentages)
+
+# Generate the grouped bar chart
+ggplot(result, aes(x = education, y = percentage, fill = education)) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.8), width = 0.7) +
+  labs(title = "Opinions on Single-Use Utensil Bylaw: Somewhat oppose", 
+       x = "Education Level", y = "Percentage", fill = "Education") +
+  scale_fill_manual(values = c("#F0E442", "#0072B2", "#D55E00", "#009E73", "#F8766D", "#00BFC4", "#7CAE00", "#C77CFF"))  
+```
+```{r}
 
 # Subset the data frame to include only the necessary columns
-df <- subset(raw_data, select = c("single_use_utensil_bylaw_opinion", "education"))
+strongly_oppose<- subset(raw_data, select = c("single_use_utensil_bylaw_opinion", "education"))
 
-# Define the order of the education levels
-edu_levels <- c("Primary school or less", "Some high school", "Graduated high school", 
-                 "Some college / CEGEP / Trade School", "Graduated from college / CEGEP / Trade School", 
-                 "Some university, but did not finish", "University undergraduate degree", "University graduate degree")
+# Filter the data frame for responses with "Strongly oppose" opinion
+strongly_oppose <- strongly_oppose %>% 
+  filter(single_use_utensil_bylaw_opinion == "Strongly oppose")
 
-# Define the order of the opinions
-opinions <- c("Strongly support", "Somewhat support", "Neither support nor oppose", 
-              "Somewhat oppose", "Strongly oppose", "Don't know")
+# Count the number of responses in each education level
+education_counts <- count(strongly_oppose, education)
 
-# Generate a list of ggplot objects, one for each opinion
-plots <- lapply(opinions, function(opinion) {
-  # Filter the data frame for the current opinion
-  df_opinion <- df %>% filter(single_use_utensil_bylaw_opinion == opinion)
-  
-  # Calculate the count of each education level for the current opinion
-  counts <- df_opinion %>% 
-    group_by(education) %>% 
-    summarise(count = n())
-  
-  # Generate the grouped bar chart
-  ggplot(counts, aes(x = education, y = count, fill = education)) +
-    geom_bar(stat = "identity", position = position_dodge(width = 0.8), width = 0.7) +
-    labs(title = paste("Opinions on Single-Use Utensil Bylaw:", opinion), 
-         x = "Education Level", y = "Count", fill = "Education") +
-    scale_fill_manual(values = c("#F0E442", "#0072B2", "#D55E00", "#009E73", "#F8766D", "#00BFC4", "#7CAE00", "#C77CFF"),
-                      labels = edu_levels) +
-    guides(fill=guide_legend(reverse=TRUE)) +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1))
-})
+# Calculate the total number of responses
+total_responses <- sum(education_counts$n)
 
-# Print the list of ggplot objects using grid.arrange
-gridExtra::grid.arrange(grobs = plots, ncol = 2)
+# Calculate the percentage of respondents for each education level
+percentages <- education_counts$n / total_responses * 100
 
+# Combine the counts and percentages into a data frame
+result <- data.frame(education = education_counts$education, count = education_counts$n, percentage = percentages)
+
+# Generate the grouped bar chart
+ggplot(result, aes(x = education, y = percentage, fill = education)) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.8), width = 0.7) +
+  labs(title = "Opinions on Single-Use Utensil Bylaw: Strongly oppose", 
+       x = "Education Level", y = "Percentage", fill = "Education") +
+  scale_fill_manual(values = c("#F0E442", "#0072B2", "#D55E00", "#009E73", "#F8766D", "#00BFC4", "#7CAE00", "#C77CFF"))  
+```
+
+
+```{r}
+
+# Subset the data frame to include only the necessary columns
+Dont_know <- subset(raw_data, select = c("single_use_utensil_bylaw_opinion", "education"))
+
+# Filter the data frame for responses with "Don't know" opinion
+Dont_know <- Dont_know %>% 
+  filter(single_use_utensil_bylaw_opinion == "Don't know")
+
+# Count the number of responses in each education level
+education_counts <- count(Dont_know, education)
+
+# Calculate the total number of responses
+total_responses <- sum(education_counts$n)
+
+# Calculate the percentage of respondents for each education level
+percentages <- education_counts$n / total_responses * 100
+
+# Combine the counts and percentages into a data frame
+result <- data.frame(education = education_counts$education, count = education_counts$n, percentage = percentages)
+
+# Generate the grouped bar chart
+ggplot(result, aes(x = education, y = percentage, fill = education)) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.8), width = 0.7) +
+  labs(title = "Opinions on Single-Use Utensil Bylaw: Don't know", 
+       x = "Education Level", y = "Percentage", fill = "Education") +
+  scale_fill_manual(values = c("#F0E442", "#0072B2", "#D55E00", "#009E73", "#F8766D", "#00BFC4", "#7CAE00", "#C77CFF"))  
 ```
 
 # Model
