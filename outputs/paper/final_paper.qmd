@@ -1,10 +1,13 @@
 ---
-title: " "
+title: "Exploring the Influence of Demographic Factors on Public Support for a Single-Use Eating Utensil Bylaw in the City of Toronto"
 author: "Myra Li"
 date: "19 April 2023"
 date-format: long
-abstract: ""
+abstract: "Plastic pollution has become an increasingly serious issue, prompting governments to implement legal measures to address the problem. Public attitudes towards such bylaw, however, vary significantly. Using data collected by Solid Waste Management Services, this paper analyzes the relationship between individuals' support for a single-use plastic bylaw and their demographic factors. Our findings indicate that those with higher household incomes and education levels are more likely to strongly support the bylaw. Additionally, tailored educational interventions could be effective in swaying the opinions of respondents who neither support nor oppose the bylaw, potentially increasing overall support for the bylaw."
 format: pdf
+number-sections: true
+toc: true
+thanks: "Code and data are available at: https://github.com/myraliym/single-use-and-takeaway-items-in-Toronto-.git"
 documentclass: article
 geometry: margin = 1in 
 bibliography: references.bib
@@ -41,15 +44,15 @@ However, the survey also has some inherent weaknesses. One notable limitation is
 ## Variables
 We selected five variables from the raw data for our analysis, as detailed below:
                                        
-Support for Bylaw: The respondents' level of support or opposition to a by-request/ask-first bylaw aimed at reducing single-use eating utensil consumption in the City of Toronto. The available response options include: Strongly support, Somewhat support, Neither support nor oppose, Somewhat oppose, Strongly oppose, and Don't know.
+  Support for Bylaw: The respondents' level of support or opposition to a by-request/ask-first bylaw aimed at reducing single-use eating utensil consumption in the City of Toronto. The available response options include: Strongly support, Somewhat support, Neither support nor oppose, Somewhat oppose, Strongly oppose, and Don't know.
                                 
-Gender: The respondents' gender, with available response options being Male and Female.
+  Gender: The respondents' gender, with available response options being Male and Female.
                                  
-Age: The age of the respondents, recorded in numerical format.
+  Age: The age of the respondents, recorded in numerical format.
                               
-Education: The highest level of education achieved by the respondents. Response options include: Graduated from college/CEGEP/Trade School, Graduated high school, Primary school or less, Some college/CEGEP/Trade School, Some high school, Some university but did not finish, University graduate degree, and University undergraduate degree.
+  Education: The highest level of education achieved by the respondents. Response options include: Graduated from college/CEGEP/Trade School, Graduated high school, Primary school or less, Some college/CEGEP/Trade School, Some high school, Some university but did not finish, University graduate degree, and University undergraduate degree.
                            
-Household Income: The respondents' household income, with response options ranging from "Less than $5,000" to "$250,000 or more" in various increments, as well as "Prefer not to answer."
+  Household Income: The respondents' household income, with response options ranging from "Less than $5,000" to "$250,000 or more" in various increments, as well as "Prefer not to answer."
                          
                     
 ## Data Visualization
@@ -103,11 +106,13 @@ ggplot(gender, aes(x = single_use_utensil_bylaw_opinion, fill = gender)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ```
+                                      
+
 @fig-1gender illustrates a subtle difference between genders regarding opinions on the single-use utensil bylaw. While the discrepancy is not substantial, females generally exhibit less support for the laws aimed at reducing single-use utensil consumption. It is essential to acknowledge that the available response options for gender are limited to female and male, which may not accurately represent the inclusivity and diversity of gender identities. Furthermore, the survey does not explicitly specify whether the gender options refer to biological sex or gender identity, which could potentially influence the interpretation of the results.
-
+                                            
 In light of these limitations, it is crucial to consider the potential impact of a more inclusive and comprehensive approach to capturing gender information in future surveys. By offering a wider range of gender options, including non-binary and transgender identities, as well as clearly defining whether the question pertains to biological sex or gender identity, researchers can obtain a more accurate and nuanced understanding of the relationship between gender and opinions on the single-use utensil bylaw. This, in turn, could help policymakers and environmental advocates tailor their campaigns and communication strategies to engage different segments of the population more effectively and foster greater support for such environmental initiatives.
-
-```{r, fig.height = 4.5}
+                                     
+```{r}
 #| message: false
 #| warning: false
 #| echo: false
@@ -131,12 +136,17 @@ ggplot(age, aes(x = age, y = ..count.., group = single_use_utensil_bylaw_opinion
   scale_color_manual(values = c("#F8766D", "#00BFC4", "#7CAE00", "#E69F00", "#0072B2", "#D8C400")) 
 
 ```
+
+
+                                                                                         
+\newpage
 @fig-2age reveals that the majority of respondents fall within the age brackets of around 30 and around 60 years old. Among these individuals, many express moderate support for the bylaw. A substantial portion of respondents strongly support the bylaw, while a smaller group somewhat supports it. In most cases, across different age groups, the pattern of choices appears to be similar.
-                                          
+                                                               
 However, we also observed an interesting trend among individuals aged 50-60 years old: there is an upward tendency for them to choose "somewhat oppose." This trend may suggest that people in this age group might hold more conservative views or have specific concerns that influence their stance on the bylaw. To better understand the underlying reasons for this divergence in opinions, further research could be conducted to explore the factors that contribute to this particular age group's less supportive outlook on the single-use utensil bylaw.
-                                         
-In summary, while the overall trend of support for the bylaw is consistent across most age groups, the notable exception of those aged 50-60 warrants further investigation. By examining the unique perspectives and concerns of individuals within this age bracket, policymakers and environmental advocates can better tailor their messaging and strategies to address potential reservations, ultimately fostering broader support for the bylaw among various age groups.                        
-```{r, fig.height = 4.5}
+                                                        
+In summary, while the overall trend of support for the bylaw is consistent across most age groups, the notable exception of those aged 50-60 warrants further investigation. By examining the unique perspectives and concerns of individuals within this age bracket, policymakers and environmental advocates can better tailor their messaging and strategies to address potential reservations, ultimately fostering broader support for the bylaw among various age groups.               
+                          
+```{r}
 #| message: false
 #| warning: false
 #| echo: false
@@ -170,7 +180,7 @@ ggplot(result, aes(x = opinion, y = percentage, fill = opinion)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ```
-```{r, fig.height = 4.5}
+```{r}
 #| message: false
 #| warning: false
 #| echo: false
@@ -204,7 +214,7 @@ ggplot(result, aes(x = opinion, y = percentage, fill = opinion)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
-```{r, fig.height = 4.5}
+```{r}
 #| message: false
 #| warning: false
 #| echo: false
@@ -274,7 +284,7 @@ ggplot(result, aes(x = opinion, y = percentage, fill = opinion)) +
 
 ```
 
-```{r, fig.height = 4.5}
+```{r}
 #| message: false
 #| warning: false
 #| echo: false
@@ -308,7 +318,7 @@ ggplot(result, aes(x = opinion, y = percentage, fill = opinion)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ```
-```{r, fig.height = 4.5}
+```{r}
 #| message: false
 #| warning: false
 #| echo: false
@@ -344,7 +354,7 @@ ggplot(result, aes(x = opinion, y = percentage, fill = opinion)) +
 ```
 
 
-```{r, fig.height = 4.5}
+```{r}
 #| message: false
 #| warning: false
 #| echo: false
@@ -378,7 +388,7 @@ ggplot(result, aes(x = opinion, y = percentage, fill = opinion)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ```
-```{r, fig.height = 4.5}
+```{r}
 #| message: false
 #| warning: false
 #| echo: false
@@ -412,12 +422,12 @@ ggplot(result, aes(x = opinion, y = percentage, fill = opinion)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ```
-                                                                                
+\newpage                     
 Next, we conducted an analysis for each opinion on the single-use utensil bylaw, examining whether the respondents' education level had an impact on their opinion. As @fig-3 demonstrates, the majority of university undergraduate degree holders either strongly or somewhat support the single-use utensil bylaw. Similarly, @fig-4 shows that university graduate degree holders also overwhelmingly support the bylaw, with more than 70% of respondents either strongly or somewhat supporting it.
                                            
 However, for those who completed some university education but did not finish (@fig-5), the proportion of respondents who neither support nor oppose the bylaw increased. This trend is even more pronounced for those who completed only some high school (@fig-6), with a significant increase in the "neither support nor oppose" category and about 10% of respondents choosing "don't know." Interestingly, no respondents in these groups strongly opposed the bylaw, and fewer than 10% somewhat opposed it. This finding suggests that interventions or educational efforts may sway those who are undecided to support the bylaw.
                                      
-@fig-7 shows that individuals who completed some college, CEGEP, or trade school had similar trends as university undergraduate and graduate degree holders. This observation indicates that those who completed education beyond high school are generally more supportive of the single-use utensil bylaw. In contrast, Figure 8, which represents respondents who completed primary school or less, reveals a 100% "neither support nor oppose" response. However, this result may not be particularly informative due to the small number of respondents in this category.
+@fig-7 shows that individuals who completed some college, CEGEP, or trade school had similar trends as university undergraduate and graduate degree holders. This observation indicates that those who completed education beyond high school are generally more supportive of the single-use utensil bylaw. In contrast, @fig-8, which represents respondents who completed primary school or less, reveals a 100% "neither support nor oppose" response. However, this result may not be particularly informative due to the small number of respondents in this category.
                                     
 We also noted that for each education level, approximately 10% of respondents chose "neither support nor oppose." It may be easier to persuade these individuals to support the bylaw than to change the minds of those who already oppose it.    
 
@@ -449,7 +459,7 @@ ggplot(income, aes(x = household_income, y = ..count.., fill = single_use_utensi
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ```
-                                    
+\newpage                                     
 We proceeded to investigate the association between household income and opinions on the single-use utensil bylaw by analyzing the distribution of household income across each opinion category. Our findings revealed intriguing trends, as illustrated in @fig-11. The data indicates that individuals with higher household incomes are generally more likely to strongly support the single-use utensil bylaw. However, when it comes to respondents with a household income of 250,000 cad or more, the number of those who strongly support the bylaw sees a decline.
                                       
 This decline among the highest income group may be attributed to various factors, such as the perception that the bylaw might not directly impact their lifestyle or a lack of awareness about the severity of plastic pollution. It is also possible that these individuals have different environmental priorities or believe that other measures would be more effective in addressing the issue.
@@ -518,12 +528,13 @@ ggplot(income, aes(x = household_income, y = ..count.., fill = single_use_utensi
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ```
+     
 In our analysis of individuals who hold a neutral stance, neither supporting nor opposing the single-use utensil bylaw, we discovered that a significant number of respondents prefer not to disclose their household income (@fig-13). Among those who did provide information about their household income, it appears that a higher proportion of people with lower incomes tend to adopt the "neither support nor oppose" viewpoint.
                                        
 This trend may be attributed to several factors. People with lower household incomes might not prioritize environmental issues due to more pressing concerns, such as financial stability and meeting basic needs. Additionally, they may lack access to resources and information that could raise awareness about the detrimental effects of single-use plastics and the importance of reducing their consumption.
                                         
 To engage this demographic and encourage them to support the bylaw, it may be beneficial to implement targeted educational and awareness campaigns. These initiatives could emphasize the potential cost savings associated with reusable utensils, as well as the positive environmental impact of reducing single-use plastics. By making the connection between personal financial benefits and environmental stewardship, it may be possible to sway the opinions of those who are currently neutral on the issue.
-                                  
+\newpage                                   
 ```{r}
 #| message: false
 #| warning: false
@@ -552,7 +563,7 @@ ggplot(income, aes(x = household_income, y = ..count.., fill = single_use_utensi
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ```
-An intriguing observation we made in our analysis is that no respondents with a household income higher than 199,999 cad expressed somewhat opposing views on the single-use utensil bylaw. Additionally, we found that a substantial proportion of individuals with household incomes ranging from 125,000 cad to 199,999 cad tended to somewhat oppose the bylaw.
+An intriguing observation we made in our analysis (@fig-14) is that no respondents with a household income higher than 199,999 cad expressed somewhat opposing views on the single-use utensil bylaw. Additionally, we found that a substantial proportion of individuals with household incomes ranging from 125,000 cad to 199,999 cad tended to somewhat oppose the bylaw.
 
 This pattern may be attributed to various factors that are unique to this income bracket. Individuals within this income range may have different consumption patterns or lifestyle choices that make the transition to reusable utensils more challenging or less appealing. Alternatively, they may perceive the bylaw as an unnecessary restriction on their personal freedoms or have concerns about the practicality and effectiveness of the proposed measures.
                              
@@ -690,7 +701,167 @@ summary_data <- data.frame(`Residual Deviance` = deviance, `AIC` = AIC)
 # print the data
 kable(t(summary_data), col.names = NULL, align = "c")
 ```
-
+                                  
 @tbl-variance shows that the logistic regression model has a statistically significant fit, as demonstrated by the significant difference between the null and residual deviance values. This suggests that the model has captured important information about the relationship between the predictors and the response variable. Furthermore, the AIC value of 2855.234 indicates that the model has some degree of complexity, but still performs reasonably well in terms of goodness-of-fit. These findings suggest that the model is a viable predictor of individual opinions towards a single-use utensil bylaw, based on their age, gender, education, and household income.
+                                      
+# Discussion
+                                
+In our findings, we did not observe a significant difference between genders. However, it is important to note the limitations of the gender data collected, as it only provided two options: female and male. This binary categorization may not accurately capture the inclusivity and diversity of gender identities. Our analysis also revealed that a significant proportion of the survey participants were within the age range of approximately 30 to 60 years old, consistent with the 2018 Gallup analysis (@stock2022plastics) findings that younger individuals tend to exhibit heightened concern for environmental issues.
+                                 
+In examining respondents' views on the bylaw, we observed that across all education levels, roughly 10% of the respondents selected "neither support nor oppose." We also found that individuals with lower household incomes tended to express somewhat opposing views on the single-use utensil bylaw, while those who strongly opposed the bylaw had household incomes ranging from low to high. This suggests that opposition to the bylaw is not solely determined by income levels and that other factors may be influencing these strong opposing stances.
+                          
+# Next Steps
+Considering the limitations in the representation of gender diversity and the potential impact of education on individuals' behaviors and opinions, further research is needed to better understand the potential differences and nuances in the results. To effectively persuade neutral respondents and address the concerns of different income groups, targeted outreach and education efforts should be tailored based on respondents' education levels and other demographic factors.
+                               
+For instance, those with a higher education level might be more inclined to consider data-driven arguments, while individuals with a lower education level could be more responsive to emotive stories and testimonials. Delving deeper into the underlying reasons for opposition across different income groups may reveal additional factors or trends that contribute to these perspectives. By addressing the limitations in the data and understanding the nuances in the opinions of different demographics, we can better inform targeted outreach and education efforts aimed at building support for the bylaw and fostering a more comprehensive and inclusive environmental movement.         
 
-# Reference
+
+{{< pagebreak >}}                    
+# Reference 
+{{< pagebreak >}}    
+# Appendix - DataSheet         
+
+1. For what purpose was the dataset created?                               
+This dataset was created to collect information on Reducing Single Use and Takeaway Items. The dataset was edited to evaluate the relationship between demographic factors and opinions on reducing the use of single-use eating utensils in the City of Toronto                             
+
+2. Who created this dataset (e.g. which team, research group) and on behalf of which entity (e.g. company, institution, organization)?                               
+This dataset was created by the Solid Waste Management Services, and edited by Myra Li of the University of Toronto.                                             
+
+3. What support was needed to make this dataset?                               
+The project can be find at https://open.toronto.ca/dataset/reducing-single-use-and-takeaway-items/                              
+4. Any other comments?                               
+No.                               
+                            
+1. What do the instances that comprise the dataset represent (e.g. documents, photos, people, countries)?                               
+Each row of the main dataset is a person, and contains the information about that specific person. 
+
+2. How many instances are there in total (of each type, if appropriate)?                            
+There are about 61190 instances in the original dataset. The dataset used for the report contains about 7006 instances.                                     
+3. Does the dataset contain all possible instances or is it a sample (not necessarily random) of instances from a larger set?                               
+This dataset includes responses from this public survey and independent polling. A sample of 1,000 Toronto residents aged 16 or older was surveyed online as part of the independent polling from November 26 to December 3, 2019.      
+
+4. What data does each instance consist of?                        
+Each instance consists of demographic and choices regarding the question “To what extent would you support or oppose a by-request / ask first bylaw to reduce the use of single-use eating utensils in the City of Toronto?”                              
+The demographic information including: gender, age, education, household income and location.                              
+                              
+5. Is there a label or target associated with each instance?                               
+Yes, there is a unique case ID for every individual.                              
+6. Is any information missing from individual instances?                               
+Yes, there is some missing information in the dataset, particularly regarding the specific behaviors or actions that individuals have taken to reduce their use of single-use and takeaway items. This is most likely because these questions were not asked to all respondents.                              
+7. Are relationships between individual instances made explicit (e.g. users’ movie ratings, social network links)?                               
+Yes, through the unique ID.                              
+8. Are there recommended data splits (e.g. training, development/validation, testing)?                               
+No.                              
+9. Are there any errors, sources of noise, or redundancies in the dataset?                               
+There may be, if respondents answered untruthfully. It is difficult to tell.                              
+10. Is the dataset self-contained, or does it link to or otherwise rely on external resources 
+(e.g. websites, tweets, other datasets)?                               
+It is self-contained.                               
+11. Does the dataset contain data that might be considered confidential (e.g. data that is protected by legal privilege or by doctor-patient confidentiality, data that includes the content of individuals’ non-public communications)?                               
+Yes.                               
+12. Does the dataset contain data that, if viewed directly, might be offensive, insulting, threatening, or might otherwise cause anxiety?                               
+No                              
+13. Does the dataset relate to people?                               
+Yes.                              
+14. Does the dataset identify any subpopulations (e.g. by age, gender)?                               
+Yes.                               
+                              
+15. Is it possible to identify individuals (i.e., one or more natural persons), either directly or 
+indirectly (i.e., in combination with other data) from the dataset?                               
+No.                               
+16. Does the dataset contain data that might be considered sensitive in any way (e.g. data that reveals racial or ethnic origins, sexual orientations, religious beliefs, political opinions or union memberships, or locations; financial or health data; biometric or genetic data; forms of government identification, such as social security numbers; criminal history)?                               
+No                              
+17. Any other comments?                               
+No.                               
+                     
+1. How was the data associated with each instance acquired?                               
+Through an online survey                              
+2. What mechanisms or procedures were used to collect the data (e.g. hardware apparatus 
+or sensor, manual human curation, software program, software API)?                               
+Not sure                              
+3. If the dataset is a sample from a larger set, what was the sampling strategy (e.g. deter- ministic, probabilistic with specific sampling probabilities)?                               
+Probability based random Sampling.                              
+4. Who was involved in the data collection process (e.g. students, crowdworkers, contractors) 
+and how were they compensated (e.g. how much were crowdworkers paid)?                               
+Toronto residents aged 16 or older                               
+5. Over what timeframe was the data collected? 
+from September 24, 2019 to November 11, 2019                              
+7. Were any ethical review processes conducted (e.g. by an institutional review board)?                               
+Not mentioned                              
+8. Does the dataset relate to people?                               
+Yes.                               
+                              
+9. Did you collect the data from the individuals in question directly, or obtain it via third parties or other sources (e.g. websites)?                               
+Via opendatatoronto (https://open.toronto.ca/dataset/reducing-single-use-and-takeaway-items/)                              
+10. Were the individuals in question notified about the data collection?                               
+Yes                              
+11. Did the individuals in question consent to the collection and use of their data?                              
+Yes                                                      
+Link: https://cms.wellcome.org/sites/default/files/2021-10/wgm2020-methodology.pdf                               
+12. If consent was obtained, were the consenting individuals provided with a mechanism to revoke their consent in the future or for certain uses?                               
+No.                              
+13. Has an analysis of the potential impact of the dataset and its use on data subjects (e.g. a 
+data protection impact analysis) been conducted?                               
+No.                              
+14. Any other comments?                               
+No.                               
+                         
+1. Was any preprocessing/cleaning/labeling of the data done (e.g. discretization or bucket- ing, tokenization, part-of-speech tagging, SIFT feature extraction, removal of instances, processing of missing values)?                               
+Yes, the data was cleaned but missing values were not processed.                              
+2. Was the “raw” data saved in addition to the preprocessed/cleaned/labeled data (e.g. to 
+support unanticipated future uses)?                               
+No.                              
+3. Is the software used to preprocess/clean/label the instances available?                               
+No.                              
+4. Any other comments?                               
+No.                               
+                     
+1. Has the dataset been used for any tasks already?                               
+Yes                               
+2. Is there a repository that links to any or all papers or systems that use the dataset? 
+No.                              
+3. What (other) tasks could the dataset be used for?                               
+It could also be used for analyzing how to efficiently reducing the use of single-use and takeaway items                               
+4. Is there anything about the composition of the dataset or the way it was collected and preprocessed/cleaned/labeled that might impact future uses?                               
+No                              
+5. Are there tasks for which the dataset should not be used?                              
+No                               
+6. Any other comments?                               
+No.                               
+                  
+1. Will the dataset be distributed to third parties outside of the entity (e.g. company, institution, organization) on behalf of which the dataset was created?                               
+No, the dataset is only available on opendatatoronto                              
+2. How will the dataset be distributed (e.g. tarball on website, API, GitHub)?                               
+On opendatatoronto                              
+3. When will the dataset be distributed?                               
+The dataset is already available.                              
+4. Will the dataset be distributed under a copyright or other intellectual property (IP) 
+license, and/or under applicable terms of use (ToU)?                               
+It is on the opendatatoronto website, and it is allowed for student to use the dataset for studying.                              
+5. Have any third parties imposed IP-based or other restrictions on the data associated with the instances?                               
+No.                              
+6. Do any export controls or other regulatory restrictions apply to the dataset or to indi- 
+vidual instances?                               
+No.                              
+7. Any other comments?                               
+No.                               
+24                               
+                           
+1. Who is supporting/hosting/maintaining the dataset?                               
+opendatatoronto                              
+2. How can the owner/curator/manager of the dataset be contacted (e.g. email address)?                               
+Request to opendatatoronto                              
+3. Is there an erratum?                               
+No.                               
+4. Will the dataset be updated (e.g. to correct labeling errors, add new instances, delete instances)?                               
+No.                               
+5. If the dataset relates to people, are there applicable limits on the retention of the data associated with the instances (e.g. were individuals in question told that their data would be retained for a fixed period of time and then deleted)?                               
+No.                              
+6. Will older versions of the dataset continue to be supported/hosted/maintained?                               
+No.                               
+7. If others want to extend/augment/build on/contribute to the dataset, is there a mecha- 
+nism for them to do so?                               
+No.                              
+8. Any other comments?                              
+No.                               
+
