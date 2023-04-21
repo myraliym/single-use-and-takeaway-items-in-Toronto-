@@ -1,18 +1,16 @@
 ---
 title: "Exploring the Influence of Demographic Factors on Public Support for a Single-Use Eating Utensil Bylaw in the City of Toronto"
 author: "Myra Li"
-date: "19 April 2023"
-date-format: long
+thanks: "Code and data are available at: https://github.com/myraliym/single-use-and-takeaway-items-in-Toronto-.git"
+date: "`r Sys.time()`"
+date-format: "D MMMM YYYY"
 abstract: "Plastic pollution has become an increasingly serious issue, prompting governments to implement legal measures to address the problem. Public attitudes towards such bylaw, however, vary significantly. Using data collected by Solid Waste Management Services, this paper analyzes the relationship between individuals' support for a single-use plastic bylaw and their demographic factors. Our findings indicate that those with higher household incomes and education levels are more likely to strongly support the bylaw. Additionally, tailored educational interventions could be effective in swaying the opinions of respondents who neither support nor oppose the bylaw, potentially increasing overall support for the bylaw."
 format: pdf
 number-sections: true
 toc: true
-thanks: "Code and data are available at: https://github.com/myraliym/single-use-and-takeaway-items-in-Toronto-.git"
-documentclass: article
-geometry: margin = 1in 
 bibliography: references.bib
 ---
-
+\newpage
 
 # Introduction
 The pervasive presence of plastics in the marine environment has been a significant concern since the 1970s, with their detrimental effects on ecosystems and wildlife becoming increasingly apparent [@PlasticParticles]. Despite growing awareness, a considerable number of individuals remain uninformed about the severity of this issue, leading to continued dependence on single-use plastic products. The overuse of plastics contributes to problems such as the accumulation of microplastics, the entanglement and ingestion of plastic debris by marine life, and the leaching of hazardous chemicals into the environment. These issues have far-reaching consequences for biodiversity and human health.
@@ -716,8 +714,6 @@ Considering the limitations in the representation of gender diversity and the po
 For instance, those with a higher education level might be more inclined to consider data-driven arguments, while individuals with a lower education level could be more responsive to emotive stories and testimonials. Delving deeper into the underlying reasons for opposition across different income groups may reveal additional factors or trends that contribute to these perspectives. By addressing the limitations in the data and understanding the nuances in the opinions of different demographics, we can better inform targeted outreach and education efforts aimed at building support for the bylaw and fostering a more comprehensive and inclusive environmental movement.         
 
 
-{{< pagebreak >}}                    
-# Reference 
 {{< pagebreak >}}    
 # Appendix - DataSheet         
 
@@ -865,3 +861,5 @@ No.
 8. Any other comments?                              
 No.                               
 
+{{< pagebreak >}}
+# Reference {-}
